@@ -1,0 +1,23 @@
+PKG="libwww-perl"
+PKG_ver="6.04"
+PKG_file="${PKG}_${PKG_ver}.orig.tar.gz"
+URL="http://ftp.de.debian.org/debian/pool/main/libw/libwww-perl/$PKG_file"
+
+function do_unpack
+{
+	do_unpack_std
+}
+
+function do_compile
+{
+        ./configure     --host=$TARGET
+
+        CC=$TARGET-gcc make prefix=$install_dir/usr
+}
+
+function do_install
+{
+        CC=$TARGET-gcc make install prefix=$install_dir/usr
+        cd ..
+}
+

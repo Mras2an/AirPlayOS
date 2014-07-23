@@ -1,0 +1,10 @@
+--- Makefile	2014-07-22 16:26:32.466587807 +0200
++++ /home/quentin/test/shairport/Makefile	2014-07-22 16:19:06.078587860 +0200
+@@ -1,5 +1,5 @@
+-CFLAGS:=-O2 -Wall $(shell pkg-config --cflags openssl ao)
+-LDFLAGS:=-lm -lpthread $(shell pkg-config --libs openssl ao)
++CFLAGS:=-O2 -Wall $(shell pkg-config --cflags openssl ao) -I${TOOLCHAIN_PATH}/usr/include -lssl -lcrypto
++LDFLAGS:=-lm -lpthread $(shell pkg-config --libs openssl ao) -L${TOOLCHAIN_PATH}/usr/lib -lao
+ OBJS=socketlib.o shairport.o alac.o hairtunes.o
+ all: hairtunes shairport
+ 

@@ -1,0 +1,27 @@
+PKG="perl"
+PKG_ver="5.18.2"
+PKG_file="${PKG}-${PKG_ver}.tar.gz"
+URL="www.cpan.org/src/5.0/$PKG_file"
+
+function do_unpack
+{
+	wget https://raw.github.com/arsv/perl-cross/releases/perl-5.18.2-cross-0.8.5.tar.gz
+        do_unpack_std
+        cd ..
+        tar xvf perl-5.18.2-cross-0.8.5.tar.gz -C .
+        cd -
+}
+
+function do_compile
+{
+        ./configure --prefix=/tmp --target=$TARGET
+        make CC=${CROSS_COMPILE}gcc
+}
+
+function do_install
+{
+        make DESTDIR=/tmp install
+        cp -r /tmp/tmp/* $install_dir 
+        cd ..
+}
+

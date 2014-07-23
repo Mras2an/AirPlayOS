@@ -1,0 +1,27 @@
+PKG="alsa-lib"
+PKG_ver="1.0.28"
+PKG_file="$PKG-$PKG_ver.tar.bz2"
+URL="ftp://ftp.alsa-project.org/pub/lib/$PKG_file"
+
+function do_unpack
+{
+	do_unpack_std
+}
+
+function do_compile
+{
+	CFLAGS=-static ./configure --host=$target			\
+				   --disable-python
+	make
+}
+
+function do_install
+{
+        test -e  $install_dir/usr/lib || mkdir $install_dir/usr/lib
+        test -e  $install_dir/usr/include || mkdir $install_dir/usr/include
+	cp src/.libs/libasound.* $install_dir/usr/lib
+	cp include/* $install_dir/usr/include -R
+	mkdir -p $install_dir/usr/lib/alsa-lib
+	cd ..
+}
+

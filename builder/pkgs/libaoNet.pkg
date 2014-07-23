@@ -1,0 +1,25 @@
+PKG="libsocket6-perl"
+PKG_ver="0.23"
+PKG_file="${PKG}_${PKG_ver}.orig.tar.gz"
+URL="http://ftp.de.debian.org/debian/pool/main/libs/libsocket6-perl/$PKG_file"
+
+function do_unpack
+{
+	do_unpack_std
+}
+
+function do_compile
+{
+        tar xvf ../rootfs/work/libsocket6-perl-0.23.orig/Socket6-0.23.tar.gz -C ../rootfs/work/
+        cd ../rootfs/work/Socket6-0.23/
+        ./configure     --host=$TARGET
+
+        CC=$TARGET-gcc make prefix=$install_dir/usr
+}
+
+function do_install
+{
+        CC=$TARGET-gcc make install prefix=$install_dir/usr
+        cd ..
+}
+

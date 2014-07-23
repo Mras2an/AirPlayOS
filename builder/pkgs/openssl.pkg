@@ -1,0 +1,31 @@
+PKG="openssl"
+PKG_ver="1.0.1g"
+PKG_file="$PKG-$PKG_ver.tar.gz"
+URL="http://www.openssl.org/source/$PKG_file"
+
+function do_unpack
+{
+	err=0
+	if [ -n "$MAKEFLAGS" ]
+	then
+		echo "can't build openssl with parallel make"
+		echo "unset MAKEFLAGS"
+		err=1
+		return
+	fi
+	do_unpack_std
+}
+
+function do_compile
+{
+        ./Configure linux-armv4 --openssldir=$install_dir/etc/ssl --prefix=$install_dir/usr shared
+	sed -e 's/install\:\ all\ install\_docs\ install\_sw/install\:\ all\ install_sw/' -i Makefile
+	USE_ARCH=32 make CC=${TOOLCHAIN_PATH}/bin/${TARGET}-gcc
+}
+
+function do_install
+{
+	USE_ARCH=32 make MANDIR=/tmp install
+	cd ..
+}
+

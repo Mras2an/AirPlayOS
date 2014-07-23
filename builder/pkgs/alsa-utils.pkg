@@ -1,0 +1,27 @@
+PKG="alsa-utils"
+PKG_ver="1.0.28"
+PKG_file="$PKG-$PKG_ver.tar.bz2"
+URL="ftp://ftp.alsa-project.org/pub/utils/$PKG_file"
+
+function do_unpack
+{
+	do_unpack_std
+}
+
+function do_compile
+{
+	./configure --with-systemdsystemunitdir=/tmp			\
+		    --with-udev-rules-dir=$install_dir/lib/udev/rules.d	\
+		    --prefix=$install_dir/usr				\
+		    --host=$target					\
+		    --disable-xmlto					\
+		    --disable-alsamixer
+	make
+}
+
+function do_install
+{
+	make install
+	cd ..
+}
+
