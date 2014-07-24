@@ -11,13 +11,13 @@ function do_unpack
 function do_compile
 {
 	make ARCH=arm CROSS_COMPILE=$CROSS_COMPILE defconfig 
-        make CROSS_COMPILE=$CROSS_COMPILE
+        LDFLAGS="--static" make ARCH=arm CROSS_COMPILE=$CROSS_COMPILE
 
 }
 
 function do_install
 {
-	make CONFIG_PREFIX=$install_dir install
+	LDFLAGS="--static" make CONFIG_PREFIX=$install_dir install
 	cd ..
 }
 

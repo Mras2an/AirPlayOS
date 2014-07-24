@@ -6,19 +6,17 @@ function do_build
         $builder strace $install_dir
         $builder dhcpcd $install_dir
         $builder alsa-lib $install_dir
-        $builder alsa-lib $TOOLCHAIN_PATH
+#        $builder alsa-lib $TOOLCHAIN_PATH
 
 #       $builder alsa-utils $install_dir
 
         $builder libao $install_dir
-        $builder libao $TOOLCHAIN_PATH
-        $builder util-linux $install_dir
-        $builder util-linux $TOOLCHAIN_PATH
+#        $builder libao $TOOLCHAIN_PATH
         $builder perl $install_dir
         CROSS=$CROSS_COMPILE
         unset CROSS_COMPILE
         $builder openssl $install_dir
-        $builder openssl $TOOLCHAIN_PATH
+#        $builder openssl $TOOLCHAIN_PATH
         export CROSS_COMPILE=$CROSS
 
 #error
